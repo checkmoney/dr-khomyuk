@@ -1,0 +1,19 @@
+{
+  "name": "dr-khomyuk",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:checkmoney/dr-khomyuk.git",
+  "author": "Igor Kamyshev <igor@kamyshev.me>",
+  "license": "MIT",
+  "dependencies": {
+    "@nestjs/common": "^7.0.7",
+    "@nestjs/core": "^7.0.7",
+    "@nestjs/platform-fastify": "^7.0.7",
+    "@yarnpkg/pnpify": "^2.0.0-rc.20",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.5.5"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
+}
