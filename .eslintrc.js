@@ -1,1 +1,0 @@
-module.exports = { "extends": "./.yarn/unplugged/@solid-soda-scripts-npm-1.19.1-29f4b8df04/node_modules/@solid-soda/scripts/config/eslint-js.js" }
