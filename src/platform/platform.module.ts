@@ -1,5 +1,6 @@
 import { MrButcher, MrSolomons, DetBell } from '@checkmoney/soap-opera';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+
 import { ConfigModule } from '&app/config.module';
 
 import { mrButcherProvider } from './mrButcherProvider';

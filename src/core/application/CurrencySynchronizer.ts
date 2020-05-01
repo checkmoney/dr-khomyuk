@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+
 import { MrSolomons, DetBell, Transaction } from '@checkmoney/soap-opera';
 import { Injectable } from '@nestjs/common';
 import { chunk } from 'lodash';

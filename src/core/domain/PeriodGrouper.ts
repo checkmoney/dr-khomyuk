@@ -22,11 +22,11 @@ export class PeriodGrouper {
   groupHistoryByPeriods(
     transactions: TransactionSnapshot[],
     periodType: PeriodType,
-    range: DateRange,
+    dateRange: DateRange,
   ) {
     const { earnings, expenses } = TransactionSnapshot.normalize(transactions);
 
-    return this.createPeriods(periodType)(range).map((period) => ({
+    return this.createPeriods(periodType)(dateRange).map((period) => ({
       period,
       earnings: earnings.filter(this.rangeFilterForTransactions(period)),
       expenses: expenses.filter(this.rangeFilterForTransactions(period)),

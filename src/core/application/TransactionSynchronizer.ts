@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop */
+
 import { MrButcher, MrSolomons, DetBell } from '@checkmoney/soap-opera';
 import { Injectable } from '@nestjs/common';
 import { difference, chunk } from 'lodash';

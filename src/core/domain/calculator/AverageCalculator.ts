@@ -43,8 +43,10 @@ export class AverageCalculator {
 
   private createAverageReducer = () =>
     ((sum: bigint, count: bigint) => (_: bigint, amount: bigint) => {
+      // eslint-disable-next-line no-param-reassign
       sum += amount;
-      count++;
+      // eslint-disable-next-line no-param-reassign
+      count += 1n;
 
       return sum / count;
     })(0n, 0n);
@@ -61,6 +63,8 @@ export class AverageCalculator {
         return endOfWeek(subWeeks(now, 1));
       case PeriodType.Day:
         return endOfDay(subDays(now, 1));
+      default:
+        throw new Error('Impossible situation');
     }
   };
 }

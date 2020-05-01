@@ -1,7 +1,6 @@
 import { Repository, Not, Equal } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
-
 import { DateRange } from '@checkmoney/soap-opera';
 
 import { TransactionSnapshot } from '../domain/TransactionSnapshot.entity';

@@ -15,8 +15,8 @@ export class DefaultCurrencyProcessor {
     try {
       await this.currencySynchronizer.synchronize(job.data.userId);
       await job.moveToCompleted();
-    } catch (e) {
-      await job.moveToFailed(e);
+    } catch (error) {
+      await job.moveToFailed(error);
     }
   }
 }

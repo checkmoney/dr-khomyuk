@@ -6,6 +6,11 @@ import { AverageCalculator } from '&app/core/domain/calculator/AverageCalculator
 import { PeriodAmountCalculator } from '&app/core/domain/calculator/PeriodAmountCalculator';
 import { CategoryCalculator } from '&app/core/domain/calculator/CategoryCalculator';
 
+const mapper = (t) => ({
+  category: t.category,
+  amount: t.amount.toString(),
+});
+
 @Controller('v1/statistics')
 export class StatisticsController {
   constructor(
@@ -51,11 +56,6 @@ export class StatisticsController {
       range,
       PeriodType.Month,
     );
-
-    const mapper = (t) => ({
-      category: t.category,
-      amount: t.amount.toString(),
-    });
 
     return groups.map((group) => ({
       period: group.period,

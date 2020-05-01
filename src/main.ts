@@ -5,6 +5,7 @@ import {
 } from '@nestjs/platform-fastify';
 
 import { AppModule } from '&app/app.module';
+
 import { setupSwagger } from './external/setupSwagger';
 
 async function bootstrap() {

@@ -59,13 +59,13 @@ export class TransactionSnapshot implements Transaction {
   static normalize(transactions: TransactionSnapshot[]): Normalized {
     return {
       earnings: transactions
-        .filter((transaction) => parseInt(transaction.amount) > 0)
+        .filter((transaction) => parseInt(transaction.amount, 10) > 0)
         .map((transaction) => ({
           ...transaction,
           amount: BigInt(transaction.amount),
         })),
       expenses: transactions
-        .filter((transaction) => parseInt(transaction.amount) < 0)
+        .filter((transaction) => parseInt(transaction.amount, 10) < 0)
         .map((transaction) => ({
           ...transaction,
           amount: -BigInt(transaction.amount),
