@@ -18,6 +18,7 @@ import { TransactionProcessor } from './core/presentation/queue/TransactionProce
 import { StatisticsController } from './core/presentation/http/StatisticsController';
 import { PeriodGrouper } from './core/domain/PeriodGrouper';
 import { AverageCalculator } from './core/domain/AverageCalculator';
+import { PeriodAmountCalculator } from './core/domain/PeriodAmountCalculator';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { AverageCalculator } from './core/domain/AverageCalculator';
   controllers: [TriggerController, StatisticsController],
   providers: [
     PeriodGrouper,
+    PeriodAmountCalculator,
     AverageCalculator,
     SnapshotManager,
     SnapshotFinder,

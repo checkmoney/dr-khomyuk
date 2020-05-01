@@ -11,31 +11,23 @@ import {
 } from 'date-fns';
 import { Injectable } from '@nestjs/common';
 
-import { PeriodGrouper } from './PeriodGrouper';
 import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
-import { NormalizedTransaction } from './dto/NormalizedTransaction';
+import { PeriodAmountCalculator } from './PeriodAmountCalculator';
 
 @Injectable()
 export class AverageCalculator {
   constructor(
-    private readonly grouper: PeriodGrouper,
+    private readonly periodAmount: PeriodAmountCalculator,
     private readonly finder: SnapshotFinder,
   ) {}
 
-  async calculateAverage(userId: string, periodType: PeriodType) {
+  async calculate(userId: string, periodType: PeriodType) {
     const from = await this.finder.findEarliestDate(userId);
     const to = this.endOfPreviousPeriod(periodType);
 
     const range = new DateRange(from, to);
 
-    const transactions = await this.finder.fetchByRange(userId, range);
-
-    const sums = this.grouper
-      .groupHistoryByPeriods(transactions, periodType, range)
-      .map(({ expenses, earnings }) => ({
-        expenses: expenses.map(this.toAmount).reduce(this.summarize, 0n),
-        earnings: earnings.map(this.toAmount).reduce(this.summarize, 0n),
-      }));
+    const sums = await this.periodAmount.calculate(userId, range, periodType);
 
     return {
       expenses: sums
@@ -48,10 +40,6 @@ export class AverageCalculator {
         .reduce(this.createAverageReducer(), 0n),
     };
   }
-
-  private toAmount = ({ amount }: NormalizedTransaction) => amount;
-
-  private summarize = (prev: bigint, curr: bigint) => prev + curr;
 
   private createAverageReducer = () =>
     ((sum: bigint, count: bigint) => (_: bigint, amount: bigint) => {
