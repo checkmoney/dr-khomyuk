@@ -1,35 +1,50 @@
 import { MrButcher, MrSolomons, DetBell } from '@checkmoney/soap-opera';
+import { Injectable } from '@nestjs/common';
 import { difference, chunk } from 'lodash';
 
+import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
+import { SnapshotManager } from '../infrastructure/SnapshotManager';
+import { TransactionSnapshot } from '../domain/TransactionSnapshot.entity';
+
+@Injectable()
 export class TransactionSynchronizer {
   constructor(
     private readonly history: MrButcher,
     private readonly converter: MrSolomons,
     private readonly users: DetBell,
+    private readonly snapshots: SnapshotFinder,
+    private readonly manager: SnapshotManager,
   ) {}
 
   async synchronize(userId: string): Promise<void> {
     const token = await this.users.pretend(userId);
 
-    const [savedIds, realIds, targetCurrency] = await Promise.all([
-      this.getAllSavedIds(userId),
-      this.getAllRealIds(token),
-      Promise.resolve('RUB'), // TODO: fetch real target currency
+    const [realIds, savedIds, targetCurrency] = await Promise.all([
+      this.history.eagerFetchIds(token),
+      this.snapshots.fetchIds(userId),
+      this.users.getDefaultCurrency(token),
     ]);
 
     const forDeleteIds = difference(savedIds, realIds);
-    const forFetchIds = difference(realIds, savedIds);
+    await this.manager.delete(forDeleteIds);
 
-    // TODO: delete to delete
-    await this.fetchAndSaveTransactions(token, targetCurrency, forFetchIds);
+    const forFetchIds = difference(realIds, savedIds);
+    await this.fetchAndSaveTransactions(
+      userId,
+      token,
+      targetCurrency,
+      forFetchIds,
+    );
   }
 
   private async fetchAndSaveTransactions(
+    userId: string,
     token: string,
     targetCurrency: string,
     allIds: string[],
   ): Promise<void> {
-    for (const ids of chunk(allIds, 50)) {
+    const CHUNK_SIZE = 500;
+    for (const ids of chunk(allIds, CHUNK_SIZE)) {
       const newTransactions = await this.history.fetchTransactions(token, ids);
 
       const convertedTransactions = await Promise.all(
@@ -38,21 +53,11 @@ export class TransactionSynchronizer {
         ),
       );
 
-      // TODO: save transactions
+      const snapshots = convertedTransactions.map(
+        TransactionSnapshot.fromTransaction(userId),
+      );
+
+      await this.manager.save(snapshots);
     }
-  }
-
-  private async getAllSavedIds(userId: string): Promise<string[]> {
-    return [];
-  }
-
-  private async getAllRealIds(token: string): Promise<string[]> {
-    const allIds: string[] = [];
-
-    for await (const id of this.history.lazyFetchIds(token)) {
-      allIds.push(id);
-    }
-
-    return allIds;
   }
 }
