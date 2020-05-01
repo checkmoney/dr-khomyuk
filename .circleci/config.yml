@@ -16,6 +16,7 @@ workflows:
             tags:
               only: /.*/
       - docker/build_push:
+          context: checkmoney
           image_name: "dr-khomyuk"
           image_version: CIRCLE_TAG
           docker_username: DOCKER_USERNAME
@@ -28,7 +29,6 @@ workflows:
           requires:
             - eslint
       - deploy/roll_out:
-          context: checkmoney
           ssh_user: SSH_USER
           ssh_host: SSH_HOST
           image_name: "dr-khomyuk"
