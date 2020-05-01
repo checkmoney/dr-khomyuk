@@ -1,9 +1,9 @@
 import { DateRange, PeriodType } from '@checkmoney/soap-opera';
+import { Injectable } from '@nestjs/common';
 
 import { PeriodGrouper } from './PeriodGrouper';
 import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
-import { NormalizedTransaction } from './dto/NormalizedTransaction';
-import { Injectable } from '@nestjs/common';
+import { toAmount, summarize } from './helpers';
 
 @Injectable()
 export class PeriodAmountCalculator {
@@ -23,12 +23,8 @@ export class PeriodAmountCalculator {
       .groupHistoryByPeriods(transactions, periodType, dateRange)
       .map(({ expenses, earnings, period }) => ({
         period,
-        expenses: expenses.map(this.toAmount).reduce(this.summarize, 0n),
-        earnings: earnings.map(this.toAmount).reduce(this.summarize, 0n),
+        expenses: expenses.map(toAmount).reduce(summarize, 0n),
+        earnings: earnings.map(toAmount).reduce(summarize, 0n),
       }));
   }
-
-  private toAmount = ({ amount }: NormalizedTransaction) => amount;
-
-  private summarize = (prev: bigint, curr: bigint) => prev + curr;
 }

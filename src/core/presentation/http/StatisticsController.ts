@@ -4,12 +4,14 @@ import { startOfYear, endOfYear } from 'date-fns';
 
 import { AverageCalculator } from '&app/core/domain/AverageCalculator';
 import { PeriodAmountCalculator } from '&app/core/domain/PeriodAmountCalculator';
+import { CategoryCalculator } from '&app/core/domain/CategoryCalculator';
 
 @Controller('v1/statistics')
 export class StatisticsController {
   constructor(
     private readonly average: AverageCalculator,
     private readonly periodAmount: PeriodAmountCalculator,
+    private readonly categories: CategoryCalculator,
   ) {}
 
   @Get('average')
@@ -26,7 +28,7 @@ export class StatisticsController {
   }
 
   @Get('periods')
-  async findPeriods() {
+  async fetchPeriods() {
     const range = new DateRange(startOfYear(new Date()), endOfYear(new Date()));
     const sums = await this.periodAmount.calculate(
       'igor@kamyshev.me',
@@ -38,6 +40,27 @@ export class StatisticsController {
       period: sum.period,
       earnings: sum.earnings.toString(),
       expenses: sum.expenses.toString(),
+    }));
+  }
+
+  @Get('categories')
+  async fetchCategories() {
+    const range = new DateRange(startOfYear(new Date()), endOfYear(new Date()));
+    const groups = await this.categories.calculate(
+      'igor@kamyshev.me',
+      range,
+      PeriodType.Month,
+    );
+
+    const mapper = (t) => ({
+      category: t.category,
+      amount: t.amount.toString(),
+    });
+
+    return groups.map((group) => ({
+      period: group.period,
+      earnings: group.earnings.map(mapper),
+      expenses: group.expenses.map(mapper),
     }));
   }
 }

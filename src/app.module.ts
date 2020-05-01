@@ -19,6 +19,7 @@ import { StatisticsController } from './core/presentation/http/StatisticsControl
 import { PeriodGrouper } from './core/domain/PeriodGrouper';
 import { AverageCalculator } from './core/domain/AverageCalculator';
 import { PeriodAmountCalculator } from './core/domain/PeriodAmountCalculator';
+import { CategoryCalculator } from './core/domain/CategoryCalculator';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { PeriodAmountCalculator } from './core/domain/PeriodAmountCalculator';
   providers: [
     PeriodGrouper,
     PeriodAmountCalculator,
+    CategoryCalculator,
     AverageCalculator,
     SnapshotManager,
     SnapshotFinder,
