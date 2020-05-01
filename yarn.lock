@@ -388,6 +388,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@solid-soda/evolutions@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "@solid-soda/evolutions@npm:0.1.2"
+  dependencies:
+    command-line-args: ^5.0.2
+    md5: ^2.2.1
+  bin:
+    evolutions: bin/index.js
+  checksum: 2/97ffb273b3e92de2f95f412269f302c78a4d189397603fe46a153f241e04ebc5259da7fa8d63363f14d73ac2b42648c1ebfaacc15bba62595666560588ca37aa
+  languageName: node
+  linkType: hard
+
 "@szmarczak/http-timer@npm:^1.1.2":
   version: 1.1.2
   resolution: "@szmarczak/http-timer@npm:1.1.2"
@@ -881,6 +893,13 @@ __metadata:
   version: 3.1.0
   resolution: "arr-union@npm:3.1.0"
   checksum: 2/78f0f75c4778283023b723152bf12be65773ab3628e21493e1a1d3c316d472af9053d9b3dec4d814a130ad4f8ba45ae79b0f33d270a4ae0b0ff41eb743461aa8
+  languageName: node
+  linkType: hard
+
+"array-back@npm:^3.0.1":
+  version: 3.1.0
+  resolution: "array-back@npm:3.1.0"
+  checksum: 2/959a3377f21ac97490bc14607cc3fe888d087dc7beadab8db09e03061d59e901d695ac870b050f37cddd261e03963e4fca86287e3055e0688a06b95be66f0825
   languageName: node
   linkType: hard
 
@@ -1660,6 +1679,18 @@ __metadata:
   dependencies:
     delayed-stream: ~1.0.0
   checksum: 2/5791ce7944530f0db74a97e77ea28b6fdbf89afcf038e41d6b4195019c4c803cd19ed2905a54959e5b3830d50bd5d6f93c681c6d3aaea8614ad43b48e62e9d65
+  languageName: node
+  linkType: hard
+
+"command-line-args@npm:^5.0.2":
+  version: 5.1.1
+  resolution: "command-line-args@npm:5.1.1"
+  dependencies:
+    array-back: ^3.0.1
+    find-replace: ^3.0.0
+    lodash.camelcase: ^4.3.0
+    typical: ^4.0.0
+  checksum: 2/808432f60b8e52499aab1f01fb0fc13a41058273e20d1b532c5e3ac01dd970f9525788d34ac2948cb22e8430fab300020a0231200fe2cc407ee5dcab8bcf397e
   languageName: node
   linkType: hard
 
@@ -2551,6 +2582,7 @@ __metadata:
     "@nestjs/swagger": ^4.5.3
     "@nestjs/typeorm": ^7.0.0
     "@solid-soda/config": ^2.2.0
+    "@solid-soda/evolutions": ^0.1.2
     "@types/bull": ^3.12.2
     "@types/lodash": ^4.14.150
     "@types/node": 12
@@ -3409,6 +3441,15 @@ __metadata:
     findup-sync: ^3.0.0
     merge: ^1.2.1
   checksum: 2/0a3d5f5e33b7278b89b6ebcabf675c79c01f5937ae376eaacefb4670f171306c9d28164ee90b4d7b287aba8df7712c7a265292ba6041d660c9f4d92f22f344eb
+  languageName: node
+  linkType: hard
+
+"find-replace@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "find-replace@npm:3.0.0"
+  dependencies:
+    array-back: ^3.0.1
+  checksum: 2/9aec6a6dfe746e7dddb12bf38bd395f30b40d2f3f3518ed10b63286daf9ad9f29ee6b4a74e7e4fda4a3bbd63fca9d96c32fdcb7dfe117010d601d2bf74bbf34d
   languageName: node
   linkType: hard
 
@@ -5089,6 +5130,13 @@ fsevents@~2.1.2:
   version: 3.0.0
   resolution: "lodash._reinterpolate@npm:3.0.0"
   checksum: 2/27513557d6fe526296324f1de9e1b8e8ac88ef2a2544a655e825f3ab0f52c5a675f1a73a0c9ff3c64fda031c56dfb4deb9dac7c7d21f9a04bc63dd7db5a5a73d
+  languageName: node
+  linkType: hard
+
+"lodash.camelcase@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "lodash.camelcase@npm:4.3.0"
+  checksum: 2/3cb674ed3b37bb698f2ec5a1c3f607d157279f3015877132e8be5c22cf8048988cb9bf1e61c90dbefea3895a459c095773cc266a5b1a9f4202bcd062b3983e37
   languageName: node
   linkType: hard
 
@@ -8483,6 +8531,13 @@ typescript@^3.8.3:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 2/2950b292ac700898647d49ca5f07fa546f6c3d28983ba559c5b4fa360babdc1734493b7f5f72553735eaa401c850989d7bbbd70f739df3c0b7fc83c82e37d8a5
+  languageName: node
+  linkType: hard
+
+"typical@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "typical@npm:4.0.0"
+  checksum: 2/6b166af2fe0a11d84e114e6fb227f5f1b91e291506b86502af54e267d2ae74e5dc61c78c487af04d332affcc0626e52a6bf544fd7e45feceeaaf114b73617258
   languageName: node
   linkType: hard
 

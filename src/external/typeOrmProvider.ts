@@ -14,7 +14,7 @@ export const typeOrmProvider: TypeOrmModuleAsyncOptions = {
       password: config.getStringOrThrow('DB_PASSWORD'),
       database: config.getStringOrThrow('DB_NAME'),
       entities: [join(__dirname, '/../**/*.entity.{ts,js}')],
-      synchronize: true, // TODO: add evolutions
+      synchronize: false,
     };
   },
   inject: [Configuration],

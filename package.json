@@ -21,6 +21,7 @@
     "@nestjs/swagger": "^4.5.3",
     "@nestjs/typeorm": "^7.0.0",
     "@solid-soda/config": "^2.2.0",
+    "@solid-soda/evolutions": "^0.1.2",
     "@yarnpkg/pnpify": "^2.0.0-rc.20",
     "bull": "^3.13.0",
     "date-fns": "^2.12.0",
