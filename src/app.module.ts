@@ -8,6 +8,7 @@ import { SnapshotFinder } from './core/infrastructure/SnapshotFinder';
 import { TransactionSynchronizer } from './core/application/TransactionSynchronizer';
 import { typeOrmProvider } from './external/typeOrmProvider';
 import { TransactionSnapshot } from './core/domain/TransactionSnapshot.entity';
+import { CurrencySynchronizer } from './core/application/CurrencySynchronizer';
 
 @Module({
   imports: [
@@ -17,7 +18,12 @@ import { TransactionSnapshot } from './core/domain/TransactionSnapshot.entity';
     TypeOrmModule.forFeature([TransactionSnapshot]),
   ],
   controllers: [],
-  providers: [SnapshotManager, SnapshotFinder, TransactionSynchronizer],
+  providers: [
+    SnapshotManager,
+    SnapshotFinder,
+    CurrencySynchronizer,
+    TransactionSynchronizer,
+  ],
 })
 export class AppModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {

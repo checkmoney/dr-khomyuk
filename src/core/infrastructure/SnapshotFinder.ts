@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { Repository, Not, Equal } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 
@@ -10,6 +10,18 @@ export class SnapshotFinder {
     @InjectRepository(TransactionSnapshot)
     private readonly repo: Repository<TransactionSnapshot>,
   ) {}
+
+  async fetchWithDifferentCurrency(
+    userId: string,
+    currency: string,
+  ): Promise<TransactionSnapshot[]> {
+    const snapshots = await this.repo.find({
+      userId,
+      currency: Not(Equal(currency)),
+    });
+
+    return snapshots;
+  }
 
   async fetchIds(userId: string): Promise<string[]> {
     const ids = await this.repo

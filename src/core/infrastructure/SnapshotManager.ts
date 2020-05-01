@@ -11,6 +11,10 @@ export class SnapshotManager {
     private readonly em: EntityManager,
   ) {}
 
+  async update(snapshots: TransactionSnapshot[]): Promise<void> {
+    await this.em.save(snapshots);
+  }
+
   async save(snapshots: TransactionSnapshot[]): Promise<void> {
     await this.em.insert(TransactionSnapshot, snapshots);
   }

@@ -48,4 +48,9 @@ export class TransactionSnapshot implements Transaction {
         userId,
       );
   }
+
+  convertToOtherCurrency(newAmount: string, newCurrency: string) {
+    this.amount = newAmount;
+    this.currency = newCurrency;
+  }
 }
