@@ -16,10 +16,18 @@ export class SnapshotManager {
   }
 
   async save(snapshots: TransactionSnapshot[]): Promise<void> {
+    if (snapshots.length === 0) {
+      return;
+    }
+
     await this.em.insert(TransactionSnapshot, snapshots);
   }
 
   async delete(ids: string[]): Promise<void> {
+    if (ids.length === 0) {
+      return;
+    }
+
     await this.em.delete(TransactionSnapshot, ids);
   }
 }

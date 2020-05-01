@@ -24,14 +24,12 @@ export class SnapshotFinder {
   }
 
   async fetchIds(userId: string): Promise<string[]> {
-    const ids = await this.repo
+    const rows = await this.repo
       .createQueryBuilder('s')
       .select('id')
-      .where('user_id := userId', { userId })
+      .where('s.user_id = :userId', { userId })
       .getRawMany();
 
-    // TODO: check what in ids and transform it to array of string
-
-    return [];
+    return rows.map((row) => row.id);
   }
 }

@@ -43,7 +43,7 @@ export class TransactionSynchronizer {
     targetCurrency: string,
     allIds: string[],
   ): Promise<void> {
-    const CHUNK_SIZE = 500;
+    const CHUNK_SIZE = 100;
     for (const ids of chunk(allIds, CHUNK_SIZE)) {
       const newTransactions = await this.history.fetchTransactions(token, ids);
 
