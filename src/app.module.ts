@@ -15,6 +15,9 @@ import { bullProvider } from './external/bullProvider';
 import { CURRENCY_QUEUE, TRANSACTION_QUEUE } from './external/constants';
 import { DefaultCurrencyProcessor } from './core/presentation/queue/DefaultCurrencyProcessor';
 import { TransactionProcessor } from './core/presentation/queue/TransactionProcessor';
+import { StatisticsController } from './core/presentation/http/StatisticsController';
+import { PeriodGrouper } from './core/domain/PeriodGrouper';
+import { AverageCalculator } from './core/domain/AverageCalculator';
 
 @Module({
   imports: [
@@ -25,8 +28,10 @@ import { TransactionProcessor } from './core/presentation/queue/TransactionProce
     TypeOrmModule.forRootAsync(typeOrmProvider),
     TypeOrmModule.forFeature([TransactionSnapshot]),
   ],
-  controllers: [TriggerController],
+  controllers: [TriggerController, StatisticsController],
   providers: [
+    PeriodGrouper,
+    AverageCalculator,
     SnapshotManager,
     SnapshotFinder,
     CurrencySynchronizer,

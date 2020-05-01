@@ -1,6 +1,13 @@
 import { Transaction } from '@checkmoney/soap-opera';
 import { Entity, PrimaryColumn, Column } from 'typeorm';
 
+import { NormalizedTransaction } from './dto/NormalizedTransaction';
+
+interface Normalized {
+  earnings: NormalizedTransaction[];
+  expenses: NormalizedTransaction[];
+}
+
 @Entity('transaction_snapshots')
 export class TransactionSnapshot implements Transaction {
   @PrimaryColumn({ name: 'id' })
@@ -47,6 +54,23 @@ export class TransactionSnapshot implements Transaction {
         transaction.category,
         userId,
       );
+  }
+
+  static normalize(transactions: TransactionSnapshot[]): Normalized {
+    return {
+      earnings: transactions
+        .filter((transaction) => parseInt(transaction.amount) > 0)
+        .map((transaction) => ({
+          ...transaction,
+          amount: BigInt(transaction.amount),
+        })),
+      expenses: transactions
+        .filter((transaction) => parseInt(transaction.amount) < 0)
+        .map((transaction) => ({
+          ...transaction,
+          amount: -BigInt(transaction.amount),
+        })),
+    };
   }
 
   convertToOtherCurrency(newAmount: string, newCurrency: string) {

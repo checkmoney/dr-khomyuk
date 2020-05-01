@@ -13,7 +13,7 @@
     "release": "yarn standard-version"
   },
   "dependencies": {
-    "@checkmoney/soap-opera": "^1.6.2",
+    "@checkmoney/soap-opera": "^1.7.0",
     "@nestjs/bull": "^0.1.1",
     "@nestjs/common": "^7.0.7",
     "@nestjs/core": "^7.0.7",
@@ -23,6 +23,7 @@
     "@solid-soda/config": "^2.2.0",
     "@yarnpkg/pnpify": "^2.0.0-rc.20",
     "bull": "^3.13.0",
+    "date-fns": "^2.12.0",
     "fastify": "^2.13.1",
     "fastify-swagger": "^2.5.1",
     "lodash": "^4.17.15",

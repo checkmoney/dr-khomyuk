@@ -30,7 +30,7 @@ export class CurrencySynchronizer {
     allSnapshots: TransactionSnapshot[],
     targetCurrency: string,
   ): Promise<void> {
-    const CHUNK_SIZE = 500;
+    const CHUNK_SIZE = 100;
     for (const snapshots of chunk(allSnapshots, CHUNK_SIZE)) {
       await Promise.all(
         snapshots.map((snapshot) =>

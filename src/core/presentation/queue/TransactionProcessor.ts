@@ -18,7 +18,6 @@ export class TransactionProcessor {
       await this.transactionSynchronizer.synchronize(job.data.userId);
       await job.moveToCompleted();
     } catch (e) {
-      console.log(e);
       await job.moveToFailed(e);
     }
   }
