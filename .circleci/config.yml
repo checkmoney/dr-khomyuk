@@ -28,6 +28,7 @@ workflows:
           requires:
             - eslint
       - deploy/roll_out:
+          context: checkmoney
           ssh_user: SSH_USER
           ssh_host: SSH_HOST
           image_name: "dr-khomyuk"
