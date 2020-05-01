@@ -17,9 +17,9 @@ import { DefaultCurrencyProcessor } from './core/presentation/queue/DefaultCurre
 import { TransactionProcessor } from './core/presentation/queue/TransactionProcessor';
 import { StatisticsController } from './core/presentation/http/StatisticsController';
 import { PeriodGrouper } from './core/domain/PeriodGrouper';
-import { AverageCalculator } from './core/domain/AverageCalculator';
-import { PeriodAmountCalculator } from './core/domain/PeriodAmountCalculator';
-import { CategoryCalculator } from './core/domain/CategoryCalculator';
+import { AverageCalculator } from './core/domain/calculator/AverageCalculator';
+import { PeriodAmountCalculator } from './core/domain/calculator/PeriodAmountCalculator';
+import { CategoryCalculator } from './core/domain/calculator/CategoryCalculator';
 
 @Module({
   imports: [

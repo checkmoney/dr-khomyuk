@@ -2,9 +2,9 @@ import { DateRange, PeriodType } from '@checkmoney/soap-opera';
 import { Injectable } from '@nestjs/common';
 import { chain } from 'lodash';
 
-import { PeriodGrouper } from './PeriodGrouper';
-import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
-import { NormalizedTransaction } from './dto/NormalizedTransaction';
+import { PeriodGrouper } from '../PeriodGrouper';
+import { SnapshotFinder } from '../../infrastructure/SnapshotFinder';
+import { NormalizedTransaction } from '../dto/NormalizedTransaction';
 import { toAmount, summarize } from './helpers';
 
 @Injectable()

@@ -1,8 +1,8 @@
 import { DateRange, PeriodType } from '@checkmoney/soap-opera';
 import { Injectable } from '@nestjs/common';
 
-import { PeriodGrouper } from './PeriodGrouper';
-import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
+import { PeriodGrouper } from '../PeriodGrouper';
+import { SnapshotFinder } from '../../infrastructure/SnapshotFinder';
 import { toAmount, summarize } from './helpers';
 
 @Injectable()

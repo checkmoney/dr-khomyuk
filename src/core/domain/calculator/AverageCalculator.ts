@@ -11,7 +11,7 @@ import {
 } from 'date-fns';
 import { Injectable } from '@nestjs/common';
 
-import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
+import { SnapshotFinder } from '../../infrastructure/SnapshotFinder';
 import { PeriodAmountCalculator } from './PeriodAmountCalculator';
 
 @Injectable()

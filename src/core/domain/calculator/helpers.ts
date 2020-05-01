@@ -1,4 +1,4 @@
-import { NormalizedTransaction } from './dto/NormalizedTransaction';
+import { NormalizedTransaction } from '../dto/NormalizedTransaction';
 
 export const toAmount = ({ amount }: NormalizedTransaction) => amount;
 

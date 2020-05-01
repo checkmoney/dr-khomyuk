@@ -2,9 +2,9 @@ import { PeriodType, DateRange } from '@checkmoney/soap-opera';
 import { Controller, Get } from '@nestjs/common';
 import { startOfYear, endOfYear } from 'date-fns';
 
-import { AverageCalculator } from '&app/core/domain/AverageCalculator';
-import { PeriodAmountCalculator } from '&app/core/domain/PeriodAmountCalculator';
-import { CategoryCalculator } from '&app/core/domain/CategoryCalculator';
+import { AverageCalculator } from '&app/core/domain/calculator/AverageCalculator';
+import { PeriodAmountCalculator } from '&app/core/domain/calculator/PeriodAmountCalculator';
+import { CategoryCalculator } from '&app/core/domain/calculator/CategoryCalculator';
 
 @Controller('v1/statistics')
 export class StatisticsController {
