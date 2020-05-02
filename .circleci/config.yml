@@ -43,3 +43,20 @@ workflows:
               ignore: /.*/
           requires:
             - docker/build_push
+      - deploy/roll_out:
+          ssh_user: SSH_USER
+          ssh_host: SSH_HOST
+          image_name: "dr-khomyuk"
+          image_version: CIRCLE_TAG
+          path_to_app: PATH_TO_APP
+          apply_post_install: true
+          container_name: "khomyuk"
+          post_install_script: "yarn evolutions -y"
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+          requires:
+            - docker/build_push
+
