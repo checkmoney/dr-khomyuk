@@ -20,6 +20,7 @@ import { PeriodGrouper } from './core/domain/PeriodGrouper';
 import { AverageCalculator } from './core/domain/calculator/AverageCalculator';
 import { PeriodAmountCalculator } from './core/domain/calculator/PeriodAmountCalculator';
 import { CategoryCalculator } from './core/domain/calculator/CategoryCalculator';
+import { AuthGuard } from './core/presentation/http/AuthGuard';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CategoryCalculator } from './core/domain/calculator/CategoryCalculator'
   ],
   controllers: [TriggerController, StatisticsController],
   providers: [
+    AuthGuard,
     PeriodGrouper,
     PeriodAmountCalculator,
     CategoryCalculator,

@@ -16,7 +16,7 @@
     "release": "yarn standard-version"
   },
   "dependencies": {
-    "@checkmoney/soap-opera": "^1.7.0",
+    "@checkmoney/soap-opera": "^1.8.1",
     "@nestjs/bull": "^0.1.1",
     "@nestjs/common": "^7.0.7",
     "@nestjs/core": "^7.0.7",

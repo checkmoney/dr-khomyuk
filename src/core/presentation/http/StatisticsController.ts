@@ -1,10 +1,13 @@
-import { PeriodType, DateRange } from '@checkmoney/soap-opera';
-import { Controller, Get } from '@nestjs/common';
+import { PeriodType, DateRange, TokenPayload } from '@checkmoney/soap-opera';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { startOfYear, endOfYear } from 'date-fns';
 
 import { AverageCalculator } from '&app/core/domain/calculator/AverageCalculator';
 import { PeriodAmountCalculator } from '&app/core/domain/calculator/PeriodAmountCalculator';
 import { CategoryCalculator } from '&app/core/domain/calculator/CategoryCalculator';
+
+import { AuthGuard } from './AuthGuard';
+import { CurrentUser } from './CurrentUser';
 
 const mapper = (t) => ({
   category: t.category,
@@ -12,6 +15,7 @@ const mapper = (t) => ({
 });
 
 @Controller('v1/statistics')
+@UseGuards(AuthGuard)
 export class StatisticsController {
   constructor(
     private readonly average: AverageCalculator,
@@ -20,9 +24,9 @@ export class StatisticsController {
   ) {}
 
   @Get('average')
-  async fetchAverage() {
+  async fetchAverage(@CurrentUser() user: TokenPayload) {
     const { earnings, expenses } = await this.average.calculate(
-      'igor@kamyshev.me',
+      user.login,
       PeriodType.Week,
     );
 
@@ -33,10 +37,10 @@ export class StatisticsController {
   }
 
   @Get('periods')
-  async fetchPeriods() {
+  async fetchPeriods(@CurrentUser() user: TokenPayload) {
     const range = new DateRange(startOfYear(new Date()), endOfYear(new Date()));
     const sums = await this.periodAmount.calculate(
-      'igor@kamyshev.me',
+      user.login,
       range,
       PeriodType.Month,
     );
@@ -49,10 +53,10 @@ export class StatisticsController {
   }
 
   @Get('categories')
-  async fetchCategories() {
+  async fetchCategories(@CurrentUser() user: TokenPayload) {
     const range = new DateRange(startOfYear(new Date()), endOfYear(new Date()));
     const groups = await this.categories.calculate(
-      'igor@kamyshev.me',
+      user.login,
       range,
       PeriodType.Month,
     );
