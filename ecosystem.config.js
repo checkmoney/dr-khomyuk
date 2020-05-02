@@ -1,7 +1,6 @@
 module.exports = {
   apps: [
     {
-      node_args: '--require ./tsconfig-paths-bootstrap.js',
       name: 'dr-khomyuk',
       script: './dist/main.js',
       watch: false,
