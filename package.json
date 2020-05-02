@@ -12,6 +12,7 @@
     "pretty": "yarn prettier --write .",
     "commit": "yarn git-cz",
     "lint:code": "yarn eslint \"./**/*.{ts,tsx}\"",
+    "types": "yarn tsc --noEmit",
     "release": "yarn standard-version"
   },
   "dependencies": {

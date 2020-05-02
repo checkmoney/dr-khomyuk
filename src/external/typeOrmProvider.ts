@@ -13,7 +13,7 @@ export const typeOrmProvider: TypeOrmModuleAsyncOptions = {
       'ca-certificate.txt',
     );
 
-    const createSslConfig = this.config.isProd()
+    const createSslConfig = config.isProd()
       ? () => ({ ca: readFileSync(certPath) })
       : () => undefined;
 
