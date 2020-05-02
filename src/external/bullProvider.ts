@@ -6,13 +6,13 @@ import { ConfigModule } from '&app/config.module';
 export const bullProvider = (name: string): BullModuleAsyncOptions => ({
   name,
   useFactory: (config: Configuration) => {
+    const user = config.getStringOrElse('REDIS_USER', '');
+    const password = config.getStringOrElse('REDIS_PASSWORD', '');
+    const host = config.getStringOrThrow('REDIS_HOST');
+    const port = config.getNumberOrThrow('REDIS_PORT');
+
     return {
-      redis: {
-        host: config.getStringOrThrow('REDIS_HOST'),
-        port: config.getNumberOrThrow('REDIS_PORT'),
-        user: config.getStringOrElse('REDIS_USER', ''),
-        password: config.getStringOrElse('REDIS_PASSWORD', ''),
-      },
+      redis: `redis://${user}:${password}@${host}:${port}/`,
     };
   },
   inject: [Configuration],
