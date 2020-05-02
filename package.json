@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "NODE_ENV=development yarn nodemon --config ./nodemon.json",
     "build": "yarn tsc",
-    "prod": "yarn pm2 start",
+    "prod": "yarn pm2-runtime ./ecosystem.config.js",
     "pretty": "yarn prettier --write .",
     "commit": "yarn git-cz",
     "lint:code": "yarn eslint \"./**/*.{ts,tsx}\"",
