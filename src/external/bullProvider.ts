@@ -11,8 +11,10 @@ export const bullProvider = (name: string): BullModuleAsyncOptions => ({
     const host = config.getStringOrThrow('REDIS_HOST');
     const port = config.getNumberOrThrow('REDIS_PORT');
 
+    const prefix = config.isProd() ? 'rediss' : 'redis';
+
     return {
-      redis: `redis://${user}:${password}@${host}:${port}/`,
+      redis: `${prefix}://${user}:${password}@${host}:${port}/`,
     };
   },
   inject: [Configuration],
