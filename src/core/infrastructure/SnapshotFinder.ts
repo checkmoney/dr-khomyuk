@@ -2,20 +2,16 @@ import { Repository, Not, Equal } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { DateRange } from '@checkmoney/soap-opera';
-import { InjectQueue } from '@nestjs/bull';
-import { Queue } from 'bull';
-
-import { CURRENCY_QUEUE } from '&app/external/constants';
 
 import { TransactionSnapshot } from '../domain/TransactionSnapshot.entity';
+import { TaskManager } from './TaskManager';
 
 @Injectable()
 export class SnapshotFinder {
   constructor(
     @InjectRepository(TransactionSnapshot)
     private readonly repo: Repository<TransactionSnapshot>,
-    @InjectQueue(CURRENCY_QUEUE)
-    private readonly currencyQueue: Queue,
+    private readonly tasks: TaskManager,
   ) {}
 
   async fetchWithDifferentCurrency(
@@ -62,7 +58,7 @@ export class SnapshotFinder {
 
     // just as a precaution
     // lets recalculate currencies later
-    await this.currencyQueue.add({ userId });
+    await this.tasks.addCurrencyTask(userId);
 
     return this.repo
       .createQueryBuilder('s')

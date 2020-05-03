@@ -1,35 +1,27 @@
 import { Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiCreatedResponse } from '@nestjs/swagger';
 import { TokenPayload } from '@checkmoney/soap-opera';
-import { InjectQueue } from '@nestjs/bull';
-import { Queue } from 'bull';
-
-import { CURRENCY_QUEUE, TRANSACTION_QUEUE } from '&app/external/constants';
 
 import { AuthGuard } from './AuthGuard';
 import { CurrentUser } from './CurrentUser';
+import { TaskManager } from '&app/core/infrastructure/TaskManager';
 
 @Controller('v1/trigger')
 @UseGuards(AuthGuard)
 @ApiTags('trigger')
 @ApiBearerAuth()
 export class TriggerController {
-  constructor(
-    @InjectQueue(CURRENCY_QUEUE)
-    private readonly currencyQueue: Queue,
-    @InjectQueue(TRANSACTION_QUEUE)
-    private readonly transactionQueue: Queue,
-  ) {}
+  constructor(private readonly tasks: TaskManager) {}
 
   @Post('/default-currency')
   @ApiCreatedResponse()
   async userChangedDefaultCurrency(@CurrentUser() user: TokenPayload) {
-    await this.currencyQueue.add({ userId: user.login });
+    await this.tasks.addCurrencyTask(user.login);
   }
 
   @Post('/transaction')
   @ApiCreatedResponse()
   async userCreatedOrDeletedTransaction(@CurrentUser() user: TokenPayload) {
-    await this.transactionQueue.add({ userId: user.login });
+    await this.tasks.addTransactionTask(user.login);
   }
 }
