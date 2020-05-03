@@ -27,6 +27,7 @@
     "@solid-soda/evolutions": "^0.1.2",
     "@yarnpkg/pnpify": "^2.0.0-rc.20",
     "bull": "^3.13.0",
+    "class-transformer": "^0.2.3",
     "date-fns": "^2.12.0",
     "fastify": "^2.13.1",
     "fastify-swagger": "^2.5.1",

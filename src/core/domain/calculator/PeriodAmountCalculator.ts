@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { PeriodGrouper } from '../PeriodGrouper';
 import { SnapshotFinder } from '../../infrastructure/SnapshotFinder';
 import { toAmount, summarize } from './helpers';
+import { PeriodAmount } from '../dto/PeriodAmount';
 
 @Injectable()
 export class PeriodAmountCalculator {
@@ -21,10 +22,11 @@ export class PeriodAmountCalculator {
 
     return this.grouper
       .groupHistoryByPeriods(transactions, periodType, dateRange)
-      .map(({ expenses, earnings, period }) => ({
-        period,
-        expenses: expenses.map(toAmount).reduce(summarize, 0n),
-        earnings: earnings.map(toAmount).reduce(summarize, 0n),
-      }));
+      .map(({ expenses, earnings, period }) => {
+        const expensesSum = expenses.map(toAmount).reduce(summarize, 0n);
+        const earningsSum = earnings.map(toAmount).reduce(summarize, 0n);
+
+        return new PeriodAmount(period, expensesSum, earningsSum);
+      });
   }
 }

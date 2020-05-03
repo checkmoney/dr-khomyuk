@@ -13,6 +13,7 @@ import { Injectable } from '@nestjs/common';
 
 import { SnapshotFinder } from '../../infrastructure/SnapshotFinder';
 import { PeriodAmountCalculator } from './PeriodAmountCalculator';
+import { Average } from '../dto/Average';
 
 @Injectable()
 export class AverageCalculator {
@@ -29,16 +30,16 @@ export class AverageCalculator {
 
     const sums = await this.periodAmount.calculate(userId, range, periodType);
 
-    return {
-      expenses: sums
-        .map((item) => item.expenses)
-        .filter(Boolean)
-        .reduce(this.createAverageReducer(), 0n),
-      earnings: sums
-        .map((item) => item.earnings)
-        .filter(Boolean)
-        .reduce(this.createAverageReducer(), 0n),
-    };
+    const expenses = sums
+      .map((item) => item.expenses)
+      .filter(Boolean)
+      .reduce(this.createAverageReducer(), 0n);
+    const earnings = sums
+      .map((item) => item.earnings)
+      .filter(Boolean)
+      .reduce(this.createAverageReducer(), 0n);
+
+    return new Average(expenses, earnings);
   }
 
   private createAverageReducer = () =>

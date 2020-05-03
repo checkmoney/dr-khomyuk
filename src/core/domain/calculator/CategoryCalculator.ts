@@ -6,6 +6,7 @@ import { PeriodGrouper } from '../PeriodGrouper';
 import { SnapshotFinder } from '../../infrastructure/SnapshotFinder';
 import { NormalizedTransaction } from '../dto/NormalizedTransaction';
 import { toAmount, summarize } from './helpers';
+import { CategoryData, PeriodCategories } from '../dto/PeriodCategories';
 
 @Injectable()
 export class CategoryCalculator {
@@ -23,11 +24,14 @@ export class CategoryCalculator {
 
     return this.grouper
       .groupHistoryByPeriods(transactions, periodType, dateRange)
-      .map(({ period, earnings, expenses }) => ({
-        period,
-        earnings: this.transactionsToCategoryGroups(earnings),
-        expenses: this.transactionsToCategoryGroups(expenses),
-      }));
+      .map(
+        ({ period, earnings, expenses }) =>
+          new PeriodCategories(
+            this.transactionsToCategoryGroups(expenses),
+            this.transactionsToCategoryGroups(earnings),
+            period,
+          ),
+      );
   }
 
   private transactionsToCategoryGroups(
@@ -36,10 +40,11 @@ export class CategoryCalculator {
     return chain(allTransactions)
       .groupBy((transaction) => transaction.category)
       .entries()
-      .map(([category, transactions]) => ({
-        category,
-        amount: transactions.map(toAmount).reduce(summarize, 0n),
-      }))
+      .map(([category, transactions]) => {
+        const amount = transactions.map(toAmount).reduce(summarize, 0n);
+
+        return new CategoryData(amount, category);
+      })
       .sortBy((group) => Number(group.amount))
       .reverse()
       .value();

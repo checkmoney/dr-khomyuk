@@ -1,21 +1,36 @@
 import { PeriodType, DateRange, TokenPayload } from '@checkmoney/soap-opera';
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { startOfYear, endOfYear } from 'date-fns';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiQuery,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 
 import { AverageCalculator } from '&app/core/domain/calculator/AverageCalculator';
 import { PeriodAmountCalculator } from '&app/core/domain/calculator/PeriodAmountCalculator';
 import { CategoryCalculator } from '&app/core/domain/calculator/CategoryCalculator';
+import { PeriodCategories } from '&app/core/domain/dto/PeriodCategories';
+import { PeriodAmount } from '&app/core/domain/dto/PeriodAmount';
+import { Average } from '&app/core/domain/dto/Average';
 
 import { AuthGuard } from './AuthGuard';
 import { CurrentUser } from './CurrentUser';
-
-const mapper = (t) => ({
-  category: t.category,
-  amount: t.amount.toString(),
-});
+import { EnumValidationPipe } from './EnumValidationPipe';
+import { DateRangeParsePipe } from './DateRangeParsePipe';
+import { TransformInterceptor } from './TransformInterceptor';
 
 @Controller('v1/statistics')
 @UseGuards(AuthGuard)
+@UseInterceptors(new TransformInterceptor())
+@ApiTags('statistics')
+@ApiBearerAuth()
 export class StatisticsController {
   constructor(
     private readonly average: AverageCalculator,
@@ -24,47 +39,41 @@ export class StatisticsController {
   ) {}
 
   @Get('average')
-  async fetchAverage(@CurrentUser() user: TokenPayload) {
-    const { earnings, expenses } = await this.average.calculate(
-      user.login,
-      PeriodType.Week,
-    );
-
-    return {
-      expenses: expenses.toString(),
-      earnings: earnings.toString(),
-    };
+  @ApiOkResponse({ type: Average })
+  @ApiQuery({ name: 'periodType', enum: Object.values(PeriodType) })
+  async fetchAverage(
+    @CurrentUser() user: TokenPayload,
+    @Query('periodType', new EnumValidationPipe(PeriodType))
+    periodType: PeriodType,
+  ) {
+    return this.average.calculate(user.login, periodType);
   }
 
   @Get('periods')
-  async fetchPeriods(@CurrentUser() user: TokenPayload) {
-    const range = new DateRange(startOfYear(new Date()), endOfYear(new Date()));
-    const sums = await this.periodAmount.calculate(
-      user.login,
-      range,
-      PeriodType.Month,
-    );
-
-    return sums.map((sum) => ({
-      period: sum.period,
-      earnings: sum.earnings.toString(),
-      expenses: sum.expenses.toString(),
-    }));
+  @ApiOkResponse({ type: PeriodAmount, isArray: true })
+  @ApiQuery({ name: 'start', type: String })
+  @ApiQuery({ name: 'end', type: String })
+  @ApiQuery({ name: 'periodType', enum: Object.values(PeriodType) })
+  async fetchPeriods(
+    @CurrentUser() user: TokenPayload,
+    @Query(new DateRangeParsePipe()) range: DateRange,
+    @Query('periodType', new EnumValidationPipe(PeriodType))
+    periodType: PeriodType,
+  ) {
+    return this.periodAmount.calculate(user.login, range, periodType);
   }
 
   @Get('categories')
-  async fetchCategories(@CurrentUser() user: TokenPayload) {
-    const range = new DateRange(startOfYear(new Date()), endOfYear(new Date()));
-    const groups = await this.categories.calculate(
-      user.login,
-      range,
-      PeriodType.Month,
-    );
-
-    return groups.map((group) => ({
-      period: group.period,
-      earnings: group.earnings.map(mapper),
-      expenses: group.expenses.map(mapper),
-    }));
+  @ApiOkResponse({ type: PeriodCategories, isArray: true })
+  @ApiQuery({ name: 'start', type: String })
+  @ApiQuery({ name: 'end', type: String })
+  @ApiQuery({ name: 'periodType', enum: Object.values(PeriodType) })
+  async fetchCategories(
+    @CurrentUser() user: TokenPayload,
+    @Query(new DateRangeParsePipe()) range: DateRange,
+    @Query('periodType', new EnumValidationPipe(PeriodType))
+    periodType: PeriodType,
+  ) {
+    return this.categories.calculate(user.login, range, periodType);
   }
 }

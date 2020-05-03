@@ -102,6 +102,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:3.13.0"
       ],
       [
+        "class-transformer",
+        "npm:0.2.3"
+      ],
+      [
         "commitizen",
         "npm:4.0.4"
       ],
@@ -251,6 +255,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:2.30.0"],
             ["@yarnpkg/pnpify", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:2.0.0-rc.20"],
             ["bull", "npm:3.13.0"],
+            ["class-transformer", "npm:0.2.3"],
             ["commitizen", "npm:4.0.4"],
             ["cz-conventional-changelog", "npm:3.1.0"],
             ["date-fns", "npm:2.12.0"],
@@ -4002,6 +4007,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/parser", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:2.30.0"],
             ["@yarnpkg/pnpify", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:2.0.0-rc.20"],
             ["bull", "npm:3.13.0"],
+            ["class-transformer", "npm:0.2.3"],
             ["commitizen", "npm:4.0.4"],
             ["cz-conventional-changelog", "npm:3.1.0"],
             ["date-fns", "npm:2.12.0"],

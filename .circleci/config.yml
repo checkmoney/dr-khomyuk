@@ -24,7 +24,7 @@ workflows:
             tags:
               only: /.*/
       - docker/build_push:
-          image_name: "dr-khomyuk"
+          image_name: 'dr-khomyuk'
           image_version: CIRCLE_TAG
           docker_username: DOCKER_USERNAME
           docker_password: DOCKER_PASSWORD
@@ -39,12 +39,12 @@ workflows:
       - deploy/roll_out:
           ssh_user: SSH_USER
           ssh_host: SSH_HOST
-          image_name: "dr-khomyuk"
+          image_name: 'dr-khomyuk'
           image_version: CIRCLE_TAG
           path_to_app: PATH_TO_APP
           apply_post_install: true
-          container_name: "khomyuk"
-          post_install_script: "yarn evolutions -y"
+          container_name: 'khomyuk'
+          post_install_script: 'yarn evolutions -y'
           filters:
             tags:
               only: /.*/
@@ -52,4 +52,3 @@ workflows:
               ignore: /.*/
           requires:
             - docker/build_push
-

@@ -51,11 +51,14 @@ export class PeriodGrouper {
 
     const years = range(firstYear, lastYear + 1);
 
-    return years.map((year) => ({
-      start: new Date(`${year}-01-01`),
-      end: new Date(`${year + 1}-01-01`),
-      type: PeriodType.Year,
-    }));
+    return years.map(
+      (year) =>
+        new DatePeriod(
+          PeriodType.Year,
+          new Date(`${year}-01-01`),
+          new Date(`${year + 1}-01-01`),
+        ),
+    );
   };
 
   private createMonthPeriods = ({ start, end }: DateRange): DatePeriod[] => {
@@ -64,11 +67,7 @@ export class PeriodGrouper {
     let now = startOfMonth(start);
     while (now < end) {
       const next = startOfMonth(addMonths(now, 1));
-      groups.push({
-        start: now,
-        end: next,
-        type: PeriodType.Month,
-      });
+      groups.push(new DatePeriod(PeriodType.Month, now, next));
 
       now = next;
     }
@@ -82,11 +81,7 @@ export class PeriodGrouper {
     let now = startOfWeek(start);
     while (now < end) {
       const next = startOfWeek(addWeeks(now, 1));
-      groups.push({
-        start: now,
-        end: next,
-        type: PeriodType.Week,
-      });
+      groups.push(new DatePeriod(PeriodType.Week, now, next));
 
       now = next;
     }
@@ -100,11 +95,7 @@ export class PeriodGrouper {
     let now = startOfDay(start);
     while (now < end) {
       const next = addDays(now, 1);
-      groups.push({
-        start: now,
-        end: next,
-        type: PeriodType.Day,
-      });
+      groups.push(new DatePeriod(PeriodType.Day, now, next));
 
       now = next;
     }

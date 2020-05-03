@@ -1,4 +1,5 @@
 import { Controller, Post, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiCreatedResponse } from '@nestjs/swagger';
 import { TokenPayload } from '@checkmoney/soap-opera';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
@@ -10,6 +11,8 @@ import { CurrentUser } from './CurrentUser';
 
 @Controller('v1/trigger')
 @UseGuards(AuthGuard)
+@ApiTags('trigger')
+@ApiBearerAuth()
 export class TriggerController {
   constructor(
     @InjectQueue(CURRENCY_QUEUE)
@@ -19,11 +22,13 @@ export class TriggerController {
   ) {}
 
   @Post('/default-currency')
+  @ApiCreatedResponse()
   async userChangedDefaultCurrency(@CurrentUser() user: TokenPayload) {
     await this.currencyQueue.add({ userId: user.login });
   }
 
   @Post('/transaction')
+  @ApiCreatedResponse()
   async userCreatedOrDeletedTransaction(@CurrentUser() user: TokenPayload) {
     await this.transactionQueue.add({ userId: user.login });
   }
