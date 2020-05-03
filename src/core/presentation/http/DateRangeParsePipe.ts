@@ -4,7 +4,6 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common';
-
 import { DateRange } from '@checkmoney/soap-opera';
 
 @Injectable()
@@ -35,6 +34,6 @@ export class DateRangeParsePipe implements PipeTransform<object, DateRange> {
   }
 
   private dateIsValid(date: Date): boolean {
-    return !isNaN(date.getTime());
+    return !Number.isNaN(date.getTime());
   }
 }
