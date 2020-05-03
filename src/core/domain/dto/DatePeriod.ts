@@ -1,8 +1,7 @@
-import { Interval } from 'date-fns';
-import { PeriodType } from '@checkmoney/soap-opera';
+import { PeriodType, DateRange as BaseDateRange } from '@checkmoney/soap-opera';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class DatePeriod implements Interval {
+export class DatePeriod extends BaseDateRange {
   @ApiProperty({ enum: Object.values(PeriodType), example: PeriodType.Year })
   readonly type: PeriodType;
 
@@ -13,6 +12,8 @@ export class DatePeriod implements Interval {
   readonly end: Date;
 
   constructor(type: PeriodType, start: Date, end: Date) {
+    super(start, end);
+
     this.type = type;
     this.start = start;
     this.end = end;

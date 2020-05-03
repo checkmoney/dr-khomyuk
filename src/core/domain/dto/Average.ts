@@ -1,8 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
+import {
+  Average as BaseAverage,
+  TransformBigInt,
+} from '@checkmoney/soap-opera';
 
-import { TransformBigInt } from '&app/core/infrastructure/TransformBigInt';
-
-export class Average {
+export class Average extends BaseAverage {
   @TransformBigInt()
   @ApiProperty({ example: '20000', type: 'string' })
   readonly expenses: bigint;
@@ -12,6 +14,8 @@ export class Average {
   readonly earnings: bigint;
 
   constructor(expenses: bigint, earnings: bigint) {
+    super();
+
     this.expenses = expenses;
     this.earnings = earnings;
   }

@@ -1,6 +1,10 @@
-import { DatePeriod } from './DatePeriod';
-import { TransformBigInt } from '&app/core/infrastructure/TransformBigInt';
 import { ApiProperty } from '@nestjs/swagger';
+import {
+  PeriodCategories as BasePeriodCategories,
+  TransformBigInt,
+} from '@checkmoney/soap-opera';
+
+import { DatePeriod } from './DatePeriod';
 
 export class CategoryData {
   @TransformBigInt()
@@ -16,7 +20,7 @@ export class CategoryData {
   }
 }
 
-export class PeriodCategories {
+export class PeriodCategories extends BasePeriodCategories {
   @ApiProperty({ type: CategoryData, isArray: true })
   readonly expenses: CategoryData[];
 
@@ -31,6 +35,8 @@ export class PeriodCategories {
     earnings: CategoryData[],
     period: DatePeriod,
   ) {
+    super();
+
     this.expenses = expenses;
     this.earnings = earnings;
     this.period = period;

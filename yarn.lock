@@ -40,9 +40,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@checkmoney/soap-opera@npm:^1.8.1":
-  version: 1.8.1
-  resolution: "@checkmoney/soap-opera@npm:1.8.1"
+"@checkmoney/soap-opera@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "@checkmoney/soap-opera@npm:1.9.0"
   dependencies:
     "@solid-soda/cache": ^0.4.1
     axios: ^0.19.0
@@ -53,7 +53,7 @@ __metadata:
     querystring: ^0.2.0
   peerDependencies:
     reflect-metadata: ^0.1.13
-  checksum: 2/93b0b6ebbb62c197b6e25bd153edc56c019e449da0184f7d81a2145e3823ee33cec6a55328b2082bac87cf0a7fa6558dc93741352d36eb2107532d8a1b6aa85b
+  checksum: 2/125a3f7d7739790fb6eba1878f351cd74bdfdd5fb90122079019c336e4b74ada40c54173616e2dbcea9732a91cb9852b87acb9d5d45ae319cfebc7196deeb356
   languageName: node
   linkType: hard
 
@@ -3265,7 +3265,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "dr-khomyuk@workspace:."
   dependencies:
-    "@checkmoney/soap-opera": ^1.8.1
+    "@checkmoney/soap-opera": ^1.9.0
     "@commitlint/cli": ^8.3.5
     "@commitlint/config-conventional": ^8.3.4
     "@nestjs/bull": ^0.1.1
