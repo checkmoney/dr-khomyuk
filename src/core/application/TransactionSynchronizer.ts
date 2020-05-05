@@ -7,8 +7,6 @@ import { difference, chunk } from 'lodash';
 import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
 import { SnapshotManager } from '../infrastructure/SnapshotManager';
 import { TransactionSnapshot } from '../domain/TransactionSnapshot.entity';
-import { ProgressManager } from '../infrastructure/ProgressManager';
-import { ProgressType } from '../domain/Progress.entity';
 import { filterNullGuard } from '../utils/filterNullGuard';
 
 @Injectable()
@@ -19,30 +17,27 @@ export class TransactionSynchronizer {
     private readonly users: DetBell,
     private readonly snapshots: SnapshotFinder,
     private readonly manager: SnapshotManager,
-    private readonly progress: ProgressManager,
   ) {}
 
   async synchronize(userId: string): Promise<void> {
-    await this.progress.execute(userId, ProgressType.Transactions, async () => {
-      const token = await this.users.pretend(userId);
+    const token = await this.users.pretend(userId);
 
-      const [realIds, savedIds, targetCurrency] = await Promise.all([
-        this.history.eagerFetchIds(token),
-        this.snapshots.fetchIds(userId),
-        this.users.getDefaultCurrency(token),
-      ]);
+    const [realIds, savedIds, targetCurrency] = await Promise.all([
+      this.history.eagerFetchIds(token),
+      this.snapshots.fetchIds(userId),
+      this.users.getDefaultCurrency(token),
+    ]);
 
-      const forDeleteIds = difference(savedIds, realIds);
-      await this.manager.delete(forDeleteIds);
+    const forDeleteIds = difference(savedIds, realIds);
+    await this.manager.delete(forDeleteIds);
 
-      const forFetchIds = difference(realIds, savedIds);
-      await this.fetchAndSaveTransactions(
-        userId,
-        token,
-        targetCurrency,
-        forFetchIds,
-      );
-    });
+    const forFetchIds = difference(realIds, savedIds);
+    await this.fetchAndSaveTransactions(
+      userId,
+      token,
+      targetCurrency,
+      forFetchIds,
+    );
   }
 
   private async fetchAndSaveTransactions(

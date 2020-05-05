@@ -1,49 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository, InjectEntityManager } from '@nestjs/typeorm';
-import { Repository, EntityManager } from 'typeorm';
+import { InjectQueue } from '@nestjs/bull';
+import { Queue } from 'bull';
 
-import uid from 'uid';
+import { CURRENCY_QUEUE, TRANSACTION_QUEUE } from '&app/external/constants';
 
-import { Progress, ProgressType } from '../domain/Progress.entity';
+type Payload = {
+  userId: string;
+};
 
 @Injectable()
 export class ProgressManager {
   constructor(
-    @InjectRepository(Progress)
-    private readonly repo: Repository<Progress>,
-    @InjectEntityManager()
-    private readonly em: EntityManager,
+    @InjectQueue(CURRENCY_QUEUE)
+    private readonly currencyQueue: Queue,
+    @InjectQueue(TRANSACTION_QUEUE)
+    private readonly transactionsQueue: Queue,
   ) {}
 
-  async execute(
-    userId: string,
-    type: ProgressType,
-    callback: () => Promise<void>,
-  ): Promise<void> {
-    await this.start(userId, type);
-
-    try {
-      await callback();
-    } finally {
-      await this.end(userId, type);
-    }
-  }
-
   async inProgress(userId: string): Promise<boolean> {
-    const rows = await this.repo
-      .createQueryBuilder('p')
-      .where('p.user_id = :userId', { userId })
-      .getCount();
+    const activeSyncs = await Promise.all([
+      this.queryHasUserJob(this.currencyQueue, userId),
+      this.queryHasUserJob(this.transactionsQueue, userId),
+    ]);
 
-    return rows > 0;
+    return activeSyncs.some(Boolean);
   }
 
-  private async start(userId: string, type: ProgressType): Promise<void> {
-    const progress = new Progress(uid(), userId, type);
-    await this.em.insert(Progress, progress);
-  }
+  async queryHasUserJob(
+    queue: Queue<Payload>,
+    userId: string,
+  ): Promise<boolean> {
+    const jobs = await queue.getActive();
 
-  private async end(userId: string, type: ProgressType): Promise<void> {
-    await this.em.delete(Progress, { userId, type });
+    return jobs.some(({ data }) => data.userId === userId);
   }
 }

@@ -23,7 +23,6 @@ import { CategoryCalculator } from './core/domain/calculator/CategoryCalculator'
 import { AuthGuard } from './core/presentation/http/AuthGuard';
 import { TaskManager } from './core/infrastructure/TaskManager';
 import { ProgressManager } from './core/infrastructure/ProgressManager';
-import { Progress } from './core/domain/Progress.entity';
 
 @Module({
   imports: [
@@ -32,7 +31,7 @@ import { Progress } from './core/domain/Progress.entity';
     BullModule.registerQueueAsync(bullProvider(CURRENCY_QUEUE)),
     BullModule.registerQueueAsync(bullProvider(TRANSACTION_QUEUE)),
     TypeOrmModule.forRootAsync(typeOrmProvider),
-    TypeOrmModule.forFeature([TransactionSnapshot, Progress]),
+    TypeOrmModule.forFeature([TransactionSnapshot]),
   ],
   controllers: [TriggerController, StatisticsController],
   providers: [

@@ -1,14 +1,12 @@
 /* eslint-disable no-await-in-loop */
 
-import { MrSolomons, DetBell, Transaction } from '@checkmoney/soap-opera';
+import { MrSolomons, DetBell } from '@checkmoney/soap-opera';
 import { Injectable } from '@nestjs/common';
 import { chunk } from 'lodash';
 
 import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
 import { SnapshotManager } from '../infrastructure/SnapshotManager';
 import { TransactionSnapshot } from '../domain/TransactionSnapshot.entity';
-import { ProgressManager } from '../infrastructure/ProgressManager';
-import { ProgressType } from '../domain/Progress.entity';
 
 @Injectable()
 export class CurrencySynchronizer {
@@ -17,20 +15,17 @@ export class CurrencySynchronizer {
     private readonly users: DetBell,
     private readonly snapshots: SnapshotFinder,
     private readonly manager: SnapshotManager,
-    private readonly progress: ProgressManager,
   ) {}
 
   async synchronize(userId: string): Promise<void> {
-    await this.progress.execute(userId, ProgressType.Currency, async () => {
-      const token = await this.users.pretend(userId);
-      const targetCurrency = await this.users.getDefaultCurrency(token);
-      const snapshots = await this.snapshots.fetchWithDifferentCurrency(
-        userId,
-        targetCurrency,
-      );
+    const token = await this.users.pretend(userId);
+    const targetCurrency = await this.users.getDefaultCurrency(token);
+    const snapshots = await this.snapshots.fetchWithDifferentCurrency(
+      userId,
+      targetCurrency,
+    );
 
-      await this.convertAndSaveSnapshots(snapshots, targetCurrency);
-    });
+    await this.convertAndSaveSnapshots(snapshots, targetCurrency);
   }
 
   private async convertAndSaveSnapshots(
