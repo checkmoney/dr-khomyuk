@@ -7,6 +7,8 @@ import { chunk } from 'lodash';
 import { SnapshotFinder } from '../infrastructure/SnapshotFinder';
 import { SnapshotManager } from '../infrastructure/SnapshotManager';
 import { TransactionSnapshot } from '../domain/TransactionSnapshot.entity';
+import { ProgressManager } from '../infrastructure/ProgressManager';
+import { ProgressType } from '../domain/Progress.entity';
 
 @Injectable()
 export class CurrencySynchronizer {
@@ -15,17 +17,20 @@ export class CurrencySynchronizer {
     private readonly users: DetBell,
     private readonly snapshots: SnapshotFinder,
     private readonly manager: SnapshotManager,
+    private readonly progress: ProgressManager,
   ) {}
 
   async synchronize(userId: string): Promise<void> {
-    const token = await this.users.pretend(userId);
-    const targetCurrency = await this.users.getDefaultCurrency(token);
-    const snapshots = await this.snapshots.fetchWithDifferentCurrency(
-      userId,
-      targetCurrency,
-    );
+    await this.progress.execute(userId, ProgressType.Currency, async () => {
+      const token = await this.users.pretend(userId);
+      const targetCurrency = await this.users.getDefaultCurrency(token);
+      const snapshots = await this.snapshots.fetchWithDifferentCurrency(
+        userId,
+        targetCurrency,
+      );
 
-    await this.convertAndSaveSnapshots(snapshots, targetCurrency);
+      await this.convertAndSaveSnapshots(snapshots, targetCurrency);
+    });
   }
 
   private async convertAndSaveSnapshots(
@@ -48,13 +53,17 @@ export class CurrencySynchronizer {
     snapshot: TransactionSnapshot,
     targetCurrency: string,
   ): Promise<void> {
-    const newAmount = await this.converter.convert({
-      amount: snapshot.amount,
-      from: snapshot.currency,
-      date: snapshot.date,
-      to: targetCurrency,
-    });
+    try {
+      const newAmount = await this.converter.convert({
+        amount: snapshot.amount,
+        from: snapshot.currency,
+        date: snapshot.date,
+        to: targetCurrency,
+      });
 
-    snapshot.convertToOtherCurrency(newAmount, targetCurrency);
+      snapshot.convertToOtherCurrency(newAmount, targetCurrency);
+    } catch (error) {
+      // Ну не получилось и не получилось
+    }
   }
 }

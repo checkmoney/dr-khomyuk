@@ -3315,6 +3315,7 @@ __metadata:
     tsconfig-paths: ^3.9.0
     typeorm: ^0.2.24
     typescript: ^3.8.3
+    uid: ^1.0.0
   languageName: unknown
   linkType: soft
 
@@ -10760,6 +10761,13 @@ typescript@^3.8.3:
   bin:
     uglifyjs: bin/uglifyjs
   checksum: 2/bb667077492d8b0f2c9591a0420692302056c6df66f1c3d0bf4771854025147b6ece41159712f91374755a48e75694de9838c75a0464d4b7f96cbd2eb1c5fa2f
+  languageName: node
+  linkType: hard
+
+"uid@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "uid@npm:1.0.0"
+  checksum: 2/746151b6d7698e578c1de676c6dbd2f475ebd7dd2d91b407958ba7ddc6216d9ab772233392fde1930673a8d69bc303327477807fd367e1696e495dfb111eda4e
   languageName: node
   linkType: hard
 

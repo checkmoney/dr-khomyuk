@@ -22,6 +22,8 @@ import { PeriodAmountCalculator } from './core/domain/calculator/PeriodAmountCal
 import { CategoryCalculator } from './core/domain/calculator/CategoryCalculator';
 import { AuthGuard } from './core/presentation/http/AuthGuard';
 import { TaskManager } from './core/infrastructure/TaskManager';
+import { ProgressManager } from './core/infrastructure/ProgressManager';
+import { Progress } from './core/domain/Progress.entity';
 
 @Module({
   imports: [
@@ -30,10 +32,11 @@ import { TaskManager } from './core/infrastructure/TaskManager';
     BullModule.registerQueueAsync(bullProvider(CURRENCY_QUEUE)),
     BullModule.registerQueueAsync(bullProvider(TRANSACTION_QUEUE)),
     TypeOrmModule.forRootAsync(typeOrmProvider),
-    TypeOrmModule.forFeature([TransactionSnapshot]),
+    TypeOrmModule.forFeature([TransactionSnapshot, Progress]),
   ],
   controllers: [TriggerController, StatisticsController],
   providers: [
+    ProgressManager,
     TaskManager,
     AuthGuard,
     PeriodGrouper,
