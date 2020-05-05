@@ -59,7 +59,7 @@ export class SnapshotFinder {
 
     // just as a precaution
     // lets recalculate currencies later
-    await this.tasks.addCurrencyTask(userId);
+    // await this.tasks.addCurrencyTask(userId);
 
     return this.repo
       .createQueryBuilder('s')

@@ -22,7 +22,6 @@ import { PeriodAmountCalculator } from './core/domain/calculator/PeriodAmountCal
 import { CategoryCalculator } from './core/domain/calculator/CategoryCalculator';
 import { AuthGuard } from './core/presentation/http/AuthGuard';
 import { TaskManager } from './core/infrastructure/TaskManager';
-import { ProgressManager } from './core/infrastructure/ProgressManager';
 
 @Module({
   imports: [
@@ -35,7 +34,6 @@ import { ProgressManager } from './core/infrastructure/ProgressManager';
   ],
   controllers: [TriggerController, StatisticsController],
   providers: [
-    ProgressManager,
     TaskManager,
     AuthGuard,
     PeriodGrouper,

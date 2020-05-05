@@ -18,18 +18,18 @@ import {
 import { PeriodAmountCalculator } from '&app/core/domain/calculator/PeriodAmountCalculator';
 import { CategoryCalculator } from '&app/core/domain/calculator/CategoryCalculator';
 import { AverageCalculator } from '&app/core/domain/calculator/AverageCalculator';
-import { ProgressManager } from '&app/core/infrastructure/ProgressManager';
 import { PeriodCategories } from '&app/core/domain/dto/PeriodCategories';
+import { TaskManager } from '&app/core/infrastructure/TaskManager';
 import { PeriodAmount } from '&app/core/domain/dto/PeriodAmount';
 import { Average } from '&app/core/domain/dto/Average';
 
 import { RecalculationInProgressException } from './RecalculationInProgressException';
 import { TransformInterceptor } from './TransformInterceptor';
+import { RecalculationFilter } from './RecalculationFilter';
 import { EnumValidationPipe } from './EnumValidationPipe';
 import { DateRangeParsePipe } from './DateRangeParsePipe';
 import { CurrentUser } from './CurrentUser';
 import { AuthGuard } from './AuthGuard';
-import { RecalculationFilter } from './RecalculationFilter';
 
 @Controller('v1/statistics')
 @UseGuards(AuthGuard)
@@ -42,7 +42,7 @@ export class StatisticsController {
     private readonly average: AverageCalculator,
     private readonly periodAmount: PeriodAmountCalculator,
     private readonly categories: CategoryCalculator,
-    private readonly progress: ProgressManager,
+    private readonly tasks: TaskManager,
   ) {}
 
   @Get('average')
@@ -94,7 +94,7 @@ export class StatisticsController {
   }
 
   private async throwUnlessRecalculation(userId: string) {
-    const skip = await this.progress.inProgress(userId);
+    const skip = await this.tasks.someTaskInProgress(userId);
 
     if (skip) {
       throw new RecalculationInProgressException();
