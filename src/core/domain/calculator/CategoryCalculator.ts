@@ -20,7 +20,10 @@ export class CategoryCalculator {
     dateRange: DateRange,
     periodType: PeriodType,
   ) {
-    const transactions = await this.finder.fetchByRange(userId, dateRange);
+    const transactions = await this.finder.fetchConsistentByRange(
+      userId,
+      dateRange,
+    );
 
     return this.grouper
       .groupHistoryByPeriods(transactions, periodType, dateRange)

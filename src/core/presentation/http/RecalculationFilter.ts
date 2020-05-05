@@ -1,11 +1,11 @@
 import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
 import { FastifyReply } from 'fastify';
 
-import { RecalculationInProgressException } from './RecalculationInProgressException';
+import { InconsistentSnapshotsStateException } from '&app/core/utils/InconsistentSnapshotsStateException';
 
-@Catch(RecalculationInProgressException)
+@Catch(InconsistentSnapshotsStateException)
 export class RecalculationFilter implements ExceptionFilter {
-  catch(exception: RecalculationInProgressException, host: ArgumentsHost) {
+  catch(exception: InconsistentSnapshotsStateException, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse<FastifyReply<void>>();
 
     response.status(204);

@@ -15,6 +15,7 @@ import {
   ApiNoContentResponse,
 } from '@nestjs/swagger';
 
+import { InconsistentSnapshotsStateException } from '&app/core/utils/InconsistentSnapshotsStateException';
 import { PeriodAmountCalculator } from '&app/core/domain/calculator/PeriodAmountCalculator';
 import { CategoryCalculator } from '&app/core/domain/calculator/CategoryCalculator';
 import { AverageCalculator } from '&app/core/domain/calculator/AverageCalculator';
@@ -23,7 +24,6 @@ import { TaskManager } from '&app/core/infrastructure/TaskManager';
 import { PeriodAmount } from '&app/core/domain/dto/PeriodAmount';
 import { Average } from '&app/core/domain/dto/Average';
 
-import { RecalculationInProgressException } from './RecalculationInProgressException';
 import { TransformInterceptor } from './TransformInterceptor';
 import { RecalculationFilter } from './RecalculationFilter';
 import { EnumValidationPipe } from './EnumValidationPipe';
@@ -97,7 +97,7 @@ export class StatisticsController {
     const skip = await this.tasks.someTaskInProgress(userId);
 
     if (skip) {
-      throw new RecalculationInProgressException();
+      throw new InconsistentSnapshotsStateException();
     }
   }
 }

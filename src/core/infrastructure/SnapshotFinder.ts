@@ -2,9 +2,11 @@ import { Repository, Not, Equal } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { DateRange } from '@checkmoney/soap-opera';
+import { uniq } from 'lodash';
 
 import { TransactionSnapshot } from '../domain/TransactionSnapshot.entity';
 import { TaskManager } from './TaskManager';
+import { InconsistentSnapshotsStateException } from '../utils/InconsistentSnapshotsStateException';
 
 @Injectable()
 export class SnapshotFinder {
@@ -51,21 +53,30 @@ export class SnapshotFinder {
     return snapshot.date;
   }
 
-  async fetchByRange(
+  async fetchConsistentByRange(
     userId: string,
     dateRange: DateRange,
   ): Promise<TransactionSnapshot[]> {
     const { start, end } = dateRange.toISOStrings();
 
-    // just as a precaution
-    // lets recalculate currencies later
-    // await this.tasks.addCurrencyTask(userId);
-
-    return this.repo
+    const snapshots = await this.repo
       .createQueryBuilder('s')
       .where('s.user_id = :userId', { userId })
       .andWhere('s.date >= :start', { start })
       .andWhere('s.date < :end', { end })
       .getMany();
+
+    const currencies = uniq(snapshots.map((snapshot) => snapshot.currency));
+
+    // snapshots are inconsistent
+    if (currencies.length > 1) {
+      // lets recalculate it
+      await this.tasks.addCurrencyTask(userId);
+
+      // and skip current calculation
+      throw new InconsistentSnapshotsStateException();
+    }
+
+    return snapshots;
   }
 }
