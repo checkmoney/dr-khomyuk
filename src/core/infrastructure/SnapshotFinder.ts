@@ -18,10 +18,11 @@ export class SnapshotFinder {
     userId: string,
     currency: string,
   ): Promise<TransactionSnapshot[]> {
-    const snapshots = await this.repo.find({
-      userId,
-      currency: Not(Equal(currency)),
-    });
+    const snapshots = await this.repo
+      .createQueryBuilder('s')
+      .where('s.user_id = :userId', { userId })
+      .andWhere('s.currency != :currency', { currency })
+      .getMany();
 
     return snapshots;
   }
