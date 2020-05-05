@@ -64,7 +64,7 @@ export class SnapshotFinder {
     return this.repo
       .createQueryBuilder('s')
       .where('s.user_id = :userId', { userId })
-      .where('s.date >= :start', { start })
+      .andWhere('s.date >= :start', { start })
       .andWhere('s.date < :end', { end })
       .getMany();
   }
