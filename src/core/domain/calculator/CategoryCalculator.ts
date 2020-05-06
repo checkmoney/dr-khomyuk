@@ -1,6 +1,6 @@
 import { DateRange, PeriodType } from '@checkmoney/soap-opera';
 import { Injectable } from '@nestjs/common';
-import { chain } from 'lodash';
+import { chain, uniq } from 'lodash';
 
 import { PeriodGrouper } from '../PeriodGrouper';
 import { SnapshotFinder } from '../../infrastructure/SnapshotFinder';
@@ -24,6 +24,8 @@ export class CategoryCalculator {
       userId,
       dateRange,
     );
+
+    console.log(uniq(transactions.map((t) => t.userId)));
 
     return this.grouper
       .groupHistoryByPeriods(transactions, periodType, dateRange)
