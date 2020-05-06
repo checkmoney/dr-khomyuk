@@ -28,6 +28,7 @@ import { Grow } from '&app/core/domain/dto/Grow';
 
 import { TransformInterceptor } from './TransformInterceptor';
 import { RecalculationFilter } from './RecalculationFilter';
+import { CurrencyInterceptor } from './CurrencyInterceptor';
 import { EnumValidationPipe } from './EnumValidationPipe';
 import { DateRangeParsePipe } from './DateRangeParsePipe';
 import { CurrentUser } from './CurrentUser';
@@ -36,6 +37,7 @@ import { AuthGuard } from './AuthGuard';
 @Controller('v1/statistics')
 @UseGuards(AuthGuard)
 @UseInterceptors(new TransformInterceptor())
+@UseInterceptors(CurrencyInterceptor)
 @UseFilters(new RecalculationFilter())
 @ApiTags('statistics')
 @ApiBearerAuth()

@@ -23,6 +23,7 @@ import { CategoryCalculator } from './core/domain/calculator/CategoryCalculator'
 import { AuthGuard } from './core/presentation/http/AuthGuard';
 import { TaskManager } from './core/infrastructure/TaskManager';
 import { GrowCalculator } from './core/domain/calculator/GrowCalculator';
+import { CurrencyInterceptor } from './core/presentation/http/CurrencyInterceptor';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { GrowCalculator } from './core/domain/calculator/GrowCalculator';
     TaskManager,
     AuthGuard,
     PeriodGrouper,
+    CurrencyInterceptor,
     PeriodAmountCalculator,
     CategoryCalculator,
     AverageCalculator,
