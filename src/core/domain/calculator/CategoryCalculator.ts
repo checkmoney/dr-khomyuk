@@ -25,8 +25,6 @@ export class CategoryCalculator {
       dateRange,
     );
 
-    console.log(uniq(transactions.map((t) => t.userId)));
-
     return this.grouper
       .groupHistoryByPeriods(transactions, periodType, dateRange)
       .map(
