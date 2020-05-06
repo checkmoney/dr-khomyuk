@@ -19,10 +19,12 @@ import { InconsistentSnapshotsStateException } from '&app/core/utils/Inconsisten
 import { PeriodAmountCalculator } from '&app/core/domain/calculator/PeriodAmountCalculator';
 import { CategoryCalculator } from '&app/core/domain/calculator/CategoryCalculator';
 import { AverageCalculator } from '&app/core/domain/calculator/AverageCalculator';
+import { GrowCalculator } from '&app/core/domain/calculator/GrowCalculator';
 import { PeriodCategories } from '&app/core/domain/dto/PeriodCategories';
 import { TaskManager } from '&app/core/infrastructure/TaskManager';
 import { PeriodAmount } from '&app/core/domain/dto/PeriodAmount';
 import { Average } from '&app/core/domain/dto/Average';
+import { Grow } from '&app/core/domain/dto/Grow';
 
 import { TransformInterceptor } from './TransformInterceptor';
 import { RecalculationFilter } from './RecalculationFilter';
@@ -39,9 +41,10 @@ import { AuthGuard } from './AuthGuard';
 @ApiBearerAuth()
 export class StatisticsController {
   constructor(
-    private readonly average: AverageCalculator,
     private readonly periodAmount: PeriodAmountCalculator,
     private readonly categories: CategoryCalculator,
+    private readonly average: AverageCalculator,
+    private readonly grow: GrowCalculator,
     private readonly tasks: TaskManager,
   ) {}
 
@@ -91,6 +94,20 @@ export class StatisticsController {
     await this.throwUnlessRecalculation(user.login);
 
     return this.categories.calculate(user.login, range, periodType);
+  }
+
+  @Get('grow')
+  @ApiOkResponse({ type: Grow })
+  @ApiNoContentResponse({ description: 'Analysis do not ready' })
+  @ApiQuery({ name: 'periodType', enum: Object.values(PeriodType) })
+  async fetchGrow(
+    @CurrentUser() user: TokenPayload,
+    @Query('periodType', new EnumValidationPipe(PeriodType))
+    periodType: PeriodType,
+  ) {
+    await this.throwUnlessRecalculation(user.login);
+
+    return this.grow.calculate(user.login, periodType);
   }
 
   private async throwUnlessRecalculation(userId: string) {

@@ -1,18 +1,9 @@
 import { PeriodType, DateRange } from '@checkmoney/soap-opera';
-import {
-  endOfYear,
-  subYears,
-  endOfMonth,
-  subMonths,
-  subWeeks,
-  endOfWeek,
-  endOfDay,
-  subDays,
-} from 'date-fns';
 import { Injectable } from '@nestjs/common';
 
 import { SnapshotFinder } from '../../infrastructure/SnapshotFinder';
 import { PeriodAmountCalculator } from './PeriodAmountCalculator';
+import { endOfPreviousPeriod } from './utils/endOfPreviousPeriod';
 import { Average } from '../dto/Average';
 
 @Injectable()
@@ -24,7 +15,7 @@ export class AverageCalculator {
 
   async calculate(userId: string, periodType: PeriodType) {
     const from = await this.finder.findEarliestDate(userId);
-    const to = this.endOfPreviousPeriod(periodType);
+    const to = endOfPreviousPeriod(periodType);
 
     const range = new DateRange(from, to);
 
@@ -51,21 +42,4 @@ export class AverageCalculator {
 
       return sum / count;
     })(0n, 0n);
-
-  private endOfPreviousPeriod = (periodType: PeriodType): Date => {
-    const now = new Date();
-
-    switch (periodType) {
-      case PeriodType.Year:
-        return endOfYear(subYears(now, 1));
-      case PeriodType.Month:
-        return endOfMonth(subMonths(now, 1));
-      case PeriodType.Week:
-        return endOfWeek(subWeeks(now, 1));
-      case PeriodType.Day:
-        return endOfDay(subDays(now, 1));
-      default:
-        throw new Error('Impossible situation');
-    }
-  };
 }
