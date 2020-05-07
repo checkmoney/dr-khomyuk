@@ -31,7 +31,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "fallbackPool": [
       [
         "@checkmoney/soap-opera",
-        "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.9.0"
+        "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.10.0"
       ],
       [
         "@commitlint/cli",
@@ -237,7 +237,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["@checkmoney/soap-opera", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.9.0"],
+            ["@checkmoney/soap-opera", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.10.0"],
             ["@commitlint/cli", "npm:8.3.5"],
             ["@commitlint/config-conventional", "npm:8.3.4"],
             ["@nestjs/bull", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:0.1.1"],
@@ -333,10 +333,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@checkmoney/soap-opera", [
-        ["virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.9.0", {
-          "packageLocation": "./.yarn/$$virtual/@checkmoney-soap-opera-virtual-9937dd6fae/0/cache/@checkmoney-soap-opera-npm-1.9.0-44aebefb17-2.zip/node_modules/@checkmoney/soap-opera/",
+        ["virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.10.0", {
+          "packageLocation": "./.yarn/$$virtual/@checkmoney-soap-opera-virtual-cafabc09dd/0/cache/@checkmoney-soap-opera-npm-1.10.0-70c14c258e-2.zip/node_modules/@checkmoney/soap-opera/",
           "packageDependencies": [
-            ["@checkmoney/soap-opera", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.9.0"],
+            ["@checkmoney/soap-opera", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.10.0"],
             ["@solid-soda/cache", "npm:0.4.1"],
             ["axios", "npm:0.19.2"],
             ["class-transformer", "npm:0.2.3"],
@@ -3989,7 +3989,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["dr-khomyuk", "workspace:."],
-            ["@checkmoney/soap-opera", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.9.0"],
+            ["@checkmoney/soap-opera", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:1.10.0"],
             ["@commitlint/cli", "npm:8.3.5"],
             ["@commitlint/config-conventional", "npm:8.3.4"],
             ["@nestjs/bull", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:0.1.1"],
