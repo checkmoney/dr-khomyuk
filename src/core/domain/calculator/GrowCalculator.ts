@@ -40,7 +40,7 @@ export class GrowCalculator {
       return null;
     }
 
-    const decrease = average - actual;
+    const decrease = actual - average;
 
     return (decrease / average) * 100;
   }
