@@ -6,7 +6,7 @@
   "author": "Igor Kamyshev <igor@kamyshev.me>",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development yarn nodemon --config ./dev/nodemon.json",
+    "dev": "yarn nodemon",
     "build": "yarn tsn",
     "prod": "yarn pm2-runtime ./ecosystem.config.js",
     "pretty": "yarn prettier --write .",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "@solid-soda/tsn": "^1.1.0",
+    "@solid-soda/tsn": "^1.2.3",
     "@types/bull": "^3.12.2",
     "@types/lodash": "^4.14.150",
     "@types/node": "12",

@@ -509,17 +509,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@solid-soda/tsn@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@solid-soda/tsn@npm:1.1.0"
+"@solid-soda/tsn@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "@solid-soda/tsn@npm:1.2.3"
   dependencies:
     gulp: ^4.0.2
     gulp-typescript: ^6.0.0-alpha.1
     through2: ^3.0.1
+    tsconfig-paths: ^3.9.0
     typescript: ^3.7
   bin:
     tsn: bin/ts-to-node.js
-  checksum: 2/4682dfe9f1c6d1e09d7a922cc680123e549287a0632d807fdd9e53518b697db93c0820c9afa60f5b7125af849ca6618ec85f99a9f2301c96cf59aef1e91bb770
+  checksum: 2/a2cf60543d3b0e2eb1a8784284cacf842fd5477f29caa1bd523ece1eda7f0cd9f37af6c55a83aeec56250aecab5a0af56fdf80ed6d2a608b3efee22d185d17e5
   languageName: node
   linkType: hard
 
@@ -3248,7 +3249,7 @@ __metadata:
     "@nestjs/typeorm": ^7.0.0
     "@solid-soda/config": ^2.2.0
     "@solid-soda/evolutions": ^0.1.2
-    "@solid-soda/tsn": ^1.1.0
+    "@solid-soda/tsn": ^1.2.3
     "@types/bull": ^3.12.2
     "@types/lodash": ^4.14.150
     "@types/node": 12

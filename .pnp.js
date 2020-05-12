@@ -75,7 +75,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@solid-soda/tsn",
-        "npm:1.1.0"
+        "npm:1.2.3"
       ],
       [
         "@types/bull",
@@ -240,7 +240,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nestjs/typeorm", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:7.0.0"],
             ["@solid-soda/config", "npm:2.2.0"],
             ["@solid-soda/evolutions", "npm:0.1.2"],
-            ["@solid-soda/tsn", "npm:1.1.0"],
+            ["@solid-soda/tsn", "npm:1.2.3"],
             ["@types/bull", "npm:3.12.2"],
             ["@types/lodash", "npm:4.14.150"],
             ["@types/node", "npm:12.12.37"],
@@ -865,13 +865,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@solid-soda/tsn", [
-        ["npm:1.1.0", {
-          "packageLocation": "./.yarn/cache/@solid-soda-tsn-npm-1.1.0-610491e03c-2.zip/node_modules/@solid-soda/tsn/",
+        ["npm:1.2.3", {
+          "packageLocation": "./.yarn/cache/@solid-soda-tsn-npm-1.2.3-b870eda6dd-2.zip/node_modules/@solid-soda/tsn/",
           "packageDependencies": [
-            ["@solid-soda/tsn", "npm:1.1.0"],
+            ["@solid-soda/tsn", "npm:1.2.3"],
             ["gulp", "npm:4.0.2"],
-            ["gulp-typescript", "virtual:610491e03c8724c9c2e8e1ea55e8d914acf0e3650a85401af69836481f167c3a0246ad8de9c4ca19bf4818a40b961c1c6e9af2373171502dc3db4d51bd25d101#npm:6.0.0-alpha.1"],
+            ["gulp-typescript", "virtual:b870eda6dd779eed0c912bad2fee6943b57cd378a9872be83123e25958133be8cb55cfa47b587a781020e7333478962e84b138caa9dd0dccc63bde973d5620fc#npm:6.0.0-alpha.1"],
             ["through2", "npm:3.0.1"],
+            ["tsconfig-paths", "npm:3.9.0"],
             ["typescript", "patch:typescript@npm%3A3.8.3#builtin<compat/typescript>::version=3.8.3&hash=270b6c"]
           ],
           "linkType": "HARD",
@@ -3960,7 +3961,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nestjs/typeorm", "virtual:9a71b8bb033053b66cb21039caf00deb47e9a6a9fe4a9f8bf62ebe35dec4c28cb861589b86e37881590a8cb482c21bc0f02620b1ab2e2c928b205ea3d97c6251#npm:7.0.0"],
             ["@solid-soda/config", "npm:2.2.0"],
             ["@solid-soda/evolutions", "npm:0.1.2"],
-            ["@solid-soda/tsn", "npm:1.1.0"],
+            ["@solid-soda/tsn", "npm:1.2.3"],
             ["@types/bull", "npm:3.12.2"],
             ["@types/lodash", "npm:4.14.150"],
             ["@types/node", "npm:12.12.37"],
@@ -5853,10 +5854,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["gulp-typescript", [
-        ["virtual:610491e03c8724c9c2e8e1ea55e8d914acf0e3650a85401af69836481f167c3a0246ad8de9c4ca19bf4818a40b961c1c6e9af2373171502dc3db4d51bd25d101#npm:6.0.0-alpha.1", {
-          "packageLocation": "./.yarn/$$virtual/gulp-typescript-virtual-e6bf33f0b5/0/cache/gulp-typescript-npm-6.0.0-alpha.1-98557634b8-2.zip/node_modules/gulp-typescript/",
+        ["virtual:b870eda6dd779eed0c912bad2fee6943b57cd378a9872be83123e25958133be8cb55cfa47b587a781020e7333478962e84b138caa9dd0dccc63bde973d5620fc#npm:6.0.0-alpha.1", {
+          "packageLocation": "./.yarn/$$virtual/gulp-typescript-virtual-0335423c6c/0/cache/gulp-typescript-npm-6.0.0-alpha.1-98557634b8-2.zip/node_modules/gulp-typescript/",
           "packageDependencies": [
-            ["gulp-typescript", "virtual:610491e03c8724c9c2e8e1ea55e8d914acf0e3650a85401af69836481f167c3a0246ad8de9c4ca19bf4818a40b961c1c6e9af2373171502dc3db4d51bd25d101#npm:6.0.0-alpha.1"],
+            ["gulp-typescript", "virtual:b870eda6dd779eed0c912bad2fee6943b57cd378a9872be83123e25958133be8cb55cfa47b587a781020e7333478962e84b138caa9dd0dccc63bde973d5620fc#npm:6.0.0-alpha.1"],
             ["ansi-colors", "npm:4.1.1"],
             ["plugin-error", "npm:1.0.1"],
             ["source-map", "npm:0.7.3"],
