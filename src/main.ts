@@ -12,9 +12,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
+    { cors: { exposedHeaders: ['checkmoney-currency'] } },
   );
-
-  app.enableCors({ exposedHeaders: ['checkmoney-currency'] });
 
   setupSwagger(app, 'docs');
 
