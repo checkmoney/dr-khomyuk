@@ -15,6 +15,8 @@ async function bootstrap() {
     { cors: true },
   );
 
+  app.enableCors({ exposedHeaders: ['checkmoney-currency'] });
+
   setupSwagger(app, 'docs');
 
   await app.listen(3000, '0.0.0.0');
