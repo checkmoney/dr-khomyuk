@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/checkmoney/dr-khomyuk/compare/v1.1.1...v1.1.2) (2020-05-23)
+
+### Bug Fixes
+
+- fix cors ([5735734](https://github.com/checkmoney/dr-khomyuk/commit/5735734e1afb1016a757643dfe76cd9bad2da5de))
+
 ### [1.1.1](https://github.com/checkmoney/dr-khomyuk/compare/v1.1.0...v1.1.1) (2020-05-23)
 
 ### Bug Fixes
