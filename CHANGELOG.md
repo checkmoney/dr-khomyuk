@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/checkmoney/dr-khomyuk/compare/v1.0.2...v1.1.0) (2020-05-23)
+
+### Features
+
+- expose checkmoney-currency header ([d311f08](https://github.com/checkmoney/dr-khomyuk/commit/d311f08b94a9c10d0b01970026c9a96ac507dfc5))
+
 ### [1.0.2](https://github.com/checkmoney/dr-khomyuk/compare/v1.0.1...v1.0.2) (2020-05-11)
 
 ### [1.0.1](https://github.com/checkmoney/dr-khomyuk/compare/v1.0.0...v1.0.1) (2020-05-11)
